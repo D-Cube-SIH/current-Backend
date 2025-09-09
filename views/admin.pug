@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Admin Dashboard
+    link(rel="stylesheet", href="/admin_dashboard.css")
+  body
+    .container
+      // Sidebar
+      aside.sidebar
+        .logo LOGO
+        nav
+          ul
+            li.active: a(href="#home") Home
+            li: a(href="#chatbot") Chatbot
+            li: a(href="#peers") Peers
+            li: a(href="#resources") Resources
+            li: a(href="#logout") Logout
+
+      // Main Content
+      main.content
+       
+
+        section#home.section
+          h2 Overview
+          .cards
+            .card Placeholder 1
+            .card Placeholder 2
+            .card Placeholder 3
+
+        section#chatbot.section
+          h2 Chatbot Monitoring
+          .chatbox
+            p Chat logs will appear here...
+            input(type="text" placeholder="Type to chat")
+
+        section#peers.section
+          h2 Peer Support Activity
+          .peer-grid
+            .peer-card Peer 1
+            .peer-card Peer 2
+            .peer-card Peer 3
+            .peer-card Peer 4
+
+        section#resources.section
+          h2 Resources
+          .resources-box
+            a(href="#") Mental Health Guide 1
+            a(href="#") Mental Health Guide 2
+            a(href="#") Article: Stress Management
+
+        section#logout.section
+          h2 Logout
+          button.logout-btn Logout

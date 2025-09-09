@@ -1,0 +1,70 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Answer these questions
+    link(rel="stylesheet", href="/questions.css")
+  body
+    main.main
+      header.header
+        a.logo(href="#") Questions
+
+      .container
+        section.questions-section
+          .questions-box
+            h1 PHQ-9 Questionnaire
+            h2.question-text Little interest or pleasure in doing things
+            .options-list
+              .option
+                span Not at all
+              .option
+                span Several days
+              .option
+                span More than half the days
+              .option
+                span Nearly every day
+
+            .questions-footer
+              span.total-questions 1/10 Questions
+              button.next-btn Next
+
+          .result-box
+            h2 PHQ-9 Results!
+            .percentage-container
+              span.results #{ai_analysis}
+
+            .buttons
+              button.go-home(onclick="window.location.href = '/'") Go to home
+
+        section.questions
+          .questions-content
+            h1 Questionnaire
+            p This is a Questionnaire to check your psychological level!
+            button.start-btn Start
+
+    .popup-info
+      h2 Guide
+      span.info Instructions: Over the last 2 weeks, how often have you been bothered by the following problems?
+      span.info Choose one option per question:
+      br
+      span.info 1. Not at all
+      br
+      span.info 2. Several days
+      br
+      span.info 3. More than half the days
+      br
+      span.info 4. Nearly Every day
+      br
+      span.info Note: These are screening tool (PHQ-9) questions not diagnosis. So, Don't worry about it and be patient and give your answers.
+      br
+      .btn-group
+        button.info-btn.exit-btn Exit
+        a.info-btn.continue-btn(href="#") Continue
+
+    // ✅ Inject username into frontend
+    script.
+      const currentUser = "#{username}";
+
+    script(src="/questions.js")
+    script(src="/script.js")

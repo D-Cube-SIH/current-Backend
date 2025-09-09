@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Signin
+    link(rel="shortcut icon", href="./../../assets/images/favicon.ico", type="image/x-icon")
+    link(rel="stylesheet", href="./signup.css")
+
+  body
+    .container
+      h2 Sign Up
+      form#form-element(action="/user_success" method="post")
+        label(for="username") Username:
+        input#username(type="text" name="username" required)
+
+        label(for="email") Email:
+        input#email(type="email" name="email" required)
+
+        label(for="password") Password:
+        input#password(type="password" name="password" required)
+
+
+        button#signup-btn(type="submit") Sign Up
+        p.info(style = "margin-top:20px; text-align:center;") Already have an account ? 
+          a(href = "/" style = "text-decoration:none; color:#007BFF;")  login
+
