@@ -4,61 +4,72 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="chatbot.css")
-    link(href="https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css" rel="stylesheet")
-    link(href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css" rel="stylesheet")
-    <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    title ChatSupport
+    link(href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet")
+    title Chatbot
   body
     nav.side-bar
       header
         .image-text
-          span.img
-            img(src="/assets/ex-logo.jpeg", alt="logo" )
-          .text.header-text
+          img.logo(src="/assets/ex-logo.jpeg", alt="logo")
+          .header-text
             span.name MINDLEY
-        i.bx.bx-arrow-right-circle.toggle
+        // use a button for better hit area & accessibility
+        button.toggle(type="button" aria-pressed="false" aria-label="Toggle sidebar")
+          i.bx.bx-arrow-from-left
       .menu-bar
         .menu
           ul.menu-links
             li.nav-link
               a(href="#")
                 i.bx.bx-home-alt-2.icon
-                span.text.nav-text Dashboard
+                span.nav-text Dashboard
             li.nav-link.active
               a(href="#")
-                i.bx.bx-message-circle-dots.icon
-                span.text.nav-text Chatbot
+                i.bx.bx-message-rounded-dots.icon
+                span.nav-text Chatbot
             li.nav-link
               a(href="#")
-                i.bx.bx-people.icon
-                span.text.nav-text Peers
+                i.bx.bx-group.icon
+                span.nav-text Peers
             li.nav-link
               a(href="#")
-                i.bx.bx-captions.icon
-                span.text.nav-text Resources
+                i.bx.bx-book.icon
+                span.nav-text Resources
         .bottom-content
           li.logout
             a(href="#")
-              i.bx.bx-running.icon
-              span.text.nav-text Logout
+              i.bx.bx-log-out.icon
+              span.nav-text Logout
 
     .chat-container
       .chat
-        // Initial bot message
         .bot-bubble
           p Hi, How can I help you today?
 
     .input-holder
       .input-box
         input#user-input(type="text" name="message" placeholder="Type your message..." autocomplete="off")
-        button#send-btn
-          img(src="./../../assets/images/send_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg" alt="")
+        button#send-btn(type="button" aria-label="Send")
+          img(src="./../../assets/images/send_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg" alt="send")
 
+    // inline script for simplicity
     script.
+      // DOM refs
+      const sidebar = document.querySelector(".side-bar");
+      const toggleBtn = document.querySelector(".toggle");
+      const toggleIcon = toggleBtn.querySelector("i");
       const chatContainer = document.querySelector(".chat");
       const inputField = document.querySelector("#user-input");
       const sendBtn = document.querySelector("#send-btn");
+
+      // Make toggle accessible & clickable over a larger area
+      toggleBtn.addEventListener("click", () => {
+        const isClosed = sidebar.classList.toggle("close");
+        // swap icon direction classes
+        toggleIcon.classList.toggle("bx-arrow-from-left", !isClosed);
+        toggleIcon.classList.toggle("bx-arrow-from-right", isClosed);
+        toggleBtn.setAttribute("aria-pressed", String(isClosed));
+      });
 
       // Add message bubble
       const addMessage = (message, sender = "user") => {
@@ -83,19 +94,15 @@ html(lang="en")
       sendBtn.addEventListener("click", async () => {
         const userMessage = inputField.value.trim();
         if (!userMessage) return;
-
         addMessage(userMessage, "user");
         inputField.value = "";
-
         const typing = showTyping();
-
         try {
           const res = await fetch("/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userInput: userMessage }),
           });
-
           const data = await res.json();
           typing.remove();
           addMessage(data.reply || "⚠️ No response from bot.", "bot");
@@ -105,7 +112,7 @@ html(lang="en")
         }
       });
 
-      // Enter key = send
+      // Enter key to send
       inputField.addEventListener("keypress", (e) => {
         if (e.key === "Enter") sendBtn.click();
       });
