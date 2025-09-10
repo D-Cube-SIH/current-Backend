@@ -14,7 +14,7 @@ html(lang="en")
     style.
       #chat-window {
           padding-top: 20px;
-          height: calc(100vh - 160px);
+          height: calc(100vh - 100px);
           overflow-x: hidden;
           overflow-y: auto;
           transition: all 1s ease-in;
@@ -29,11 +29,16 @@ html(lang="en")
       #chat-window::-webkit-scrollbar-track {
           background-color: transparent;
       }
+      .header .title p{
+        margin-right: 500px;
+      }
+
       .chat-bubble {
           margin-bottom: 15px;
           padding: 12px 16px;
           border-radius: 18px;
           max-width: 70%;
+          margin-top: 10px;
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
           font-size: 14px;
           line-height: 1.4;
@@ -54,7 +59,7 @@ html(lang="en")
       .chat-bubble.system {
           background-color: #fef3c7;
           color: #92400e;
-          margin: 0 auto;
+          margin: 10px auto;
           text-align: center;
           max-width: 90%;
           font-style: italic;
@@ -68,7 +73,7 @@ html(lang="en")
   body
     .header
       button.menu-btn.menu-icon(title="Open Menu")
-        img(src="/assets/images/menu_open_41dp_000000_FILL0_wght400_GRAD0_opsz40.svg", alt="")
+        img(src="/assets/images/menu_open_40dp_000000_FILL0_wght400_GRAD0_opsz40.svg", alt="")
       .title
         p
           img(src="/assets/images/chat_bubble_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg", alt="message icon")
@@ -86,7 +91,7 @@ html(lang="en")
         button#send-btn(title="send")
           img(src="/assets/images/send_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg", alt="")
 
-    nav.side-bar
+    nav.side-bar.collapsed
       header
         .image-text
           .img

@@ -1,7 +1,142 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body h1 this is the resource page
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Mental Health Resources
+    link(rel="stylesheet", href="/resources.css")
+    link(href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css" rel="stylesheet")
+    link(href="https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css" rel="stylesheet")
+    link(href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet")
+    style.
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, #e6f2ff, #f7fbff);
+        color: #333;
+        display: flex;
+      }
+      .content {
+        margin-left: 0;
+        padding: 40px;
+        flex: 1;
+      }
+      .resources {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 50, 0.1);
+        padding: 30px;
+        animation: fadeIn 1s ease-in-out;
+        max-width: 800px;
+        margin: auto;
+      }
+      .resources h2 {
+        text-align: center;
+        color: #0059b3;
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+      .resources ul {
+        list-style: none;
+        padding: 0;
+      }
+      .resources a {
+        background: #f0f8ff;
+        margin: 12px 0;
+        padding: 14px 18px;
+        border-radius: 12px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .resources a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 50, 0.15);
+        background: #e0f0ff;
+      }
+      .resources a {
+        text-decoration: none;
+        color: #004080;
+        font-weight: 500;
+        font-size: 18px;
+        display: block;
+      }
+      .resources a:hover {
+        color: #0080ff;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+  body
+    nav.side-bar.collapsed
+      header
+        .image-text
+          .img
+            img(src="./../../assets/images/ex-logo.jpeg", alt="logo")
+          .text.header-text
+            span.name
+              | Mindly
+              .toggle
+                i.bx.bx-arrow-right-circle.toggle-img
+
+      .menu-bar
+        .menu
+          ul.menu-links
+            li.nav-link
+              a(href=`/home?username=${encodeURIComponent(username)}`)
+                i.bx.bx-home-alt-2.icon
+                span.text.nav-text Dashboard
+            li.nav-link
+              a(href=`/chat_support?username=${encodeURIComponent(username)}`)
+                i.bx.bx-message-rounded-dots.icon
+                span.text.nav-text Chatbot
+            li.nav-link
+              a(href=`/resources?username=${encodeURIComponent(username)}`)
+                i.bx.bx-people-diversity.icon
+                span.text.nav-text Peers
+            li.nav-link.active
+              a(href=`/rooms?username=${encodeURIComponent(username)}`)
+                i.bx.bx-captions.icon
+                span.text.nav-text Resources
+        .bottom-content
+          li.logout
+            a(href="/")
+              i.bx.bx-running.icon
+              span.text.nav-text Logout
+
+    // Main Content
+    .content
+      .resources
+        img.menu-icon(src="./../../assets/images/menu_open_40dp_000000_FILL0_wght400_GRAD0_opsz40.svg", alt="", style="cursor: pointer;")
+        h2 Mental Health Resources
+        ul
+          li
+            a(href="https://youtube.com/embed/DxIDKZHW3-E", target="_blank") We All Have Mental Health
+          li
+            a(href="https://youtube.com/embed/b_ZFjw-eEGo", target="_blank") Mental Health Matters: 30-Minute Daily Self-Care Practices
+          li
+            a(href="https://youtube.com/embed/KoFSKuDCXbw", target="_blank") Improving Access to Mental Health Care: Five Key Approaches
+          li
+            a(href="https://youtube.com/embed/wJJEet3mXUg", target="_blank") Mental Health Basics: Take Care of Your Mind & Emotions
+          li
+            a(href="https://youtube.com/embed/G0zJGDokyWQ", target="_blank") The Truth About Mental Health: What Everyone Should Know
+
+    script.
+      document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.querySelector('.toggle');
+        const sideBar = document.querySelector('.side-bar');
+        const menuIcon = document.querySelector('.menu-icon');
+        toggle.addEventListener('click', function () {
+          sideBar.classList.toggle('collapsed');
+        });
+        menuIcon.addEventListener('click', function () {
+          sideBar.classList.toggle('collapsed');
+        });
+      });

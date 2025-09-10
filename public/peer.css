@@ -26,7 +26,7 @@ body {
   background-color: #f8fafc;
   user-select: none;
   -webkit-user-drag: none;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .header {
@@ -83,7 +83,7 @@ body {
   left: 0;
   width: 100%;
   padding: 15px 20px;
-  background: #fff;
+  background: transparent;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -95,7 +95,7 @@ body {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  background: #fff;
+  background: transparent;
   border-radius: 25px;
   padding: 0 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -142,7 +142,7 @@ body {
 }
 
 .side-bar.collapsed {
-  transform: translateX(-100%);
+  transform: translateX(-110%);
 }
 
 .side-bar header .image-text {
@@ -204,7 +204,7 @@ body {
 }
 
 .side-bar .menu-bar {
-  height: calc(100% - 100px);
+  height: calc(100% - 150px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -366,16 +366,7 @@ body {
 }
 
 #chat-window::-webkit-scrollbar {
-  width: 8px;
-}
-
-#chat-window::-webkit-scrollbar-thumb {
-  background-color: #cbd5e1;
-  border-radius: 4px;
-}
-
-#chat-window::-webkit-scrollbar-track {
-  background-color: transparent;
+  width: 0px;
 }
 
 .chat-bubble {
@@ -406,7 +397,7 @@ body {
 .chat-bubble.system {
   background-color: #fef3c7;
   color: #92400e;
-  margin: 0 auto;
+  margin: 10px;
   text-align: center;
   max-width: 90%;
   font-style: italic;
