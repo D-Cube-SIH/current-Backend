@@ -5,7 +5,7 @@
   "main": "credential_validation.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon credential_validation.js"
+    "start": "nodemon server.js"
   },
   "author": "D-Cube",
   "license": "ISC",
@@ -15,7 +15,8 @@
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "graceful-fs": "^4.2.11",
-    "mongodb": "^6.19.0"
+    "mongodb": "^6.19.0",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

@@ -1,0 +1,227 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title PeerChat
+    link(rel="shortcut icon", href="/assets/images/favicon.ico", type="image/x-icon")
+    link(rel="stylesheet", href="/peer.css")
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap", rel="stylesheet")
+    link(href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css", rel="stylesheet")
+    link(href="https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css", rel="stylesheet")
+    link(href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css", rel="stylesheet")
+    script(src="https://cdn.tailwindcss.com")
+    style.
+      #chat-window {
+          padding-top: 20px;
+          height: calc(100vh - 160px);
+          overflow-x: hidden;
+          overflow-y: auto;
+          transition: all 1s ease-in;
+      }
+      #chat-window::-webkit-scrollbar {
+          width: 8px;
+      }
+      #chat-window::-webkit-scrollbar-thumb {
+          background-color: #cbd5e1;
+          border-radius: 4px;
+      }
+      #chat-window::-webkit-scrollbar-track {
+          background-color: transparent;
+      }
+      .chat-bubble {
+          margin-bottom: 15px;
+          padding: 12px 16px;
+          border-radius: 18px;
+          max-width: 70%;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          font-size: 14px;
+          line-height: 1.4;
+          word-wrap: break-word;
+      }
+      .chat-bubble.user {
+          background-color: #2563eb;
+          color: white;
+          margin-left: auto;
+          border-bottom-right-radius: 4px;
+      }
+      .chat-bubble.bot {
+          background-color: #e2e8f0;
+          color: #1e293b;
+          margin-right: auto;
+          border-bottom-left-radius: 4px;
+      }
+      .chat-bubble.system {
+          background-color: #fef3c7;
+          color: #92400e;
+          margin: 0 auto;
+          text-align: center;
+          max-width: 90%;
+          font-style: italic;
+      }
+      .message-meta {
+          font-size: 11px;
+          opacity: 0.8;
+          margin-bottom: 4px;
+      }
+
+  body
+    .header
+      button.menu-btn.menu-icon(title="Open Menu")
+        img(src="/assets/images/menu_open_41dp_000000_FILL0_wght400_GRAD0_opsz40.svg", alt="")
+      .title
+        p
+          img(src="/assets/images/chat_bubble_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg", alt="message icon")
+          |  PeerChat - Room: #{room || 'Not Selected'}
+
+    .chat-container
+      #chat-window
+        .flex.justify-center
+          .chat-bubble.system
+            | Welcome to the peer support chat! Messages are end-to-end encrypted.
+
+    .input-holder
+      .input-box
+        input#user-input(type="text", name="message", placeholder="Type a message...", autocomplete="off")
+        button#send-btn(title="send")
+          img(src="/assets/images/send_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg", alt="")
+
+    nav.side-bar
+      header
+        .image-text
+          .img
+            img(src="/assets/images/ex-logo.jpeg", alt="logo")
+          .text.header-text
+            span.name
+              | Mindly 
+            .toggle
+              i.bx.bx-chevron-left
+
+      .menu-bar
+        .menu
+          ul.menu-links
+            li.nav-link
+              a(href=`/home?username=${encodeURIComponent(username)}`)
+                i.bx.bx-home-alt-2.icon
+                span.text.nav-text Dashboard
+            li.nav-link
+              a(href=`/chat_support?username=${encodeURIComponent(username)}`)
+                i.bx.bx-message-rounded-dots.icon
+                span.text.nav-text Chatbot
+            li.nav-link
+              a(href=`/resources?username=${encodeURIComponent(username)}`)
+                i.bx.bx-captions.icon
+                span.text.nav-text Resources
+            li.nav-link
+              a(href=`/rooms?username=${encodeURIComponent(username)}`)
+                i.bx.bx-chat.icon
+                span.text.nav-text Room List
+        .bottom-content
+          li.logout
+            a(href="/")
+              i.bx.bx-log-out.icon
+              span.text.nav-text Logout
+
+    script(src="/socket.io/socket.io.js")
+    script.
+      const socket = io();
+      const chatWindow = document.getElementById('chat-window');
+      const input = document.getElementById('user-input');
+      const sendBtn = document.getElementById('send-btn');
+      const menuBtn = document.querySelector('.menu-btn');
+      const sideBar = document.querySelector('.side-bar');
+      const toggle = document.querySelector('.toggle');
+
+      menuBtn.addEventListener('click', () => sideBar.classList.toggle('collapsed'));
+      toggle.addEventListener('click', () => sideBar.classList.toggle('collapsed'));
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const roomId = '#{room}' || urlParams.get('room');
+      let anonName = 'Guest';
+
+      if (roomId && roomId !== 'null') {
+        socket.emit('join-room', { roomId });
+      } else {
+        window.location.href = `/rooms?username=${encodeURIComponent('#{username}')}`;
+      }
+
+      function addBubble({ username: sender, text, timestamp, isMine = false, isSystem = false }) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('flex', 'mb-3');
+        wrapper.style.justifyContent = isSystem ? 'center' : (isMine ? 'flex-end' : 'flex-start');
+
+        const bubble = document.createElement('div');
+        bubble.classList.add('chat-bubble');
+        
+        if (isSystem) {
+          bubble.classList.add('system');
+        } else {
+          bubble.classList.add(isMine ? 'user' : 'bot');
+        }
+
+        const meta = document.createElement('div');
+        meta.classList.add('message-meta');
+        meta.textContent = (isSystem ? 'System' : (isMine ? 'You' : sender)) + ' • ' + new Date(timestamp).toLocaleTimeString();
+
+        const msgText = document.createElement('div');
+        msgText.textContent = text;
+
+        bubble.appendChild(meta);
+        bubble.appendChild(msgText);
+        wrapper.appendChild(bubble);
+        chatWindow.appendChild(wrapper);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+
+      function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+        addBubble({ username: anonName, text, timestamp: new Date(), isMine: true });
+        socket.emit('send-message', { roomId, text });
+        input.value = '';
+      }
+
+      sendBtn.addEventListener('click', sendMessage);
+      input.addEventListener('keypress', e => {
+        if (e.key === 'Enter') sendMessage();
+      });
+
+      socket.on('joined', data => {
+        anonName = data.anonName;
+        addBubble({ 
+          text: `You joined the room as ${data.anonName}. There are ${data.participants.length} participants.`, 
+          timestamp: new Date(), 
+          isSystem: true 
+        });
+      });
+
+      socket.on('new-message', data => {
+        if (data.fromSocketId !== socket.id) {
+          addBubble({ 
+            username: data.username, 
+            text: data.text, 
+            timestamp: data.timestamp, 
+            isMine: false 
+          });
+        }
+      });
+
+      socket.on('user-connected', data => {
+        addBubble({ 
+          text: `${data.username} joined the chat`, 
+          timestamp: data.timestamp, 
+          isSystem: true 
+        });
+      });
+
+      socket.on('user-disconnected', data => {
+        addBubble({ 
+          text: `${data.username} left the chat`, 
+          timestamp: data.timestamp, 
+          isSystem: true 
+        });
+      });
+
+      socket.on('participants', data => {
+        console.log('Participants updated:', data.participants);
+      });

@@ -1,0 +1,78 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title My Website
+    link(rel="stylesheet", href="./style.css")
+    link(href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css", rel="stylesheet")
+    link(href="https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css", rel="stylesheet")
+    link(href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css", rel="stylesheet")
+
+  body
+    .container
+      nav.side-bar.collapsed
+        header
+          .image-text
+            .img
+              img(src="./assets/images/ex-logo.jpeg", alt="logo")
+            .text.header-text
+              span.name
+                | Mindly 
+                .toggle
+                  i.bx.bx-arrow-right-circle.toggle-img
+
+        .menu-bar
+          .menu
+            ul.menu-links
+              li.nav-link.active
+                a(href="")
+                  i.bx.bx-home-alt-2.icon
+                  span.text.nav-text Dashboard
+              li.nav-link
+                a(href=`/chat_support?username=${username}`)
+                  i.bx.bx-message-rounded-dots.icon
+                  span.text.nav-text Chatbot
+              li.nav-link
+                a(href=`/peer_support?username=${username}`)
+                  i.bx.bx-people-diversity.icon
+                  span.text.nav-text Peers
+              li.nav-link
+                a(href=`/resources?username=${username}`)
+                  i.bx.bx-captions.icon
+                  span.text.nav-text Resources
+
+          .bottom-content
+            li.logout
+              a(href="/")
+                i.bx.bx-running.icon
+                span.text.nav-text Logout
+
+      main.main-content
+        .header
+          img.menu-icon(
+            title="Open Menu",
+            src="./assets/images/menu_open_40dp_000000_FILL0_wght400_GRAD0_opsz40.svg",
+            alt="menu"
+          )
+        .body-content
+          .info-container
+
+          .content-grid
+            .content-box.large-box
+            .content-box.medium-box
+            .content-box.medium-box
+            .content-box.long-box
+
+    script.
+      document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.querySelector('.toggle');
+        const sideBar = document.querySelector('.side-bar');
+        const menuIcon = document.querySelector('.menu-icon');
+        toggle.addEventListener('click', function () {
+          sideBar.classList.toggle('collapsed');
+        });
+        menuIcon.addEventListener('click', function () {
+          sideBar.classList.toggle('collapsed');
+        });
+      });

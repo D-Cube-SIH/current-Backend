@@ -20,24 +20,21 @@ html(lang="en")
         .menu
           ul.menu-links
             li.nav-link
-              a(href="#")
+              a(href=`/home?username=${username}`)
                 i.bx.bx-home-alt-2.icon
                 span.nav-text Dashboard
-            li.nav-link.active
-              a(href="#")
-                i.bx.bx-message-rounded-dots.icon
-                span.nav-text Chatbot
+            
             li.nav-link
-              a(href="#")
+              a(href=`/peer_support?username=${username}`)
                 i.bx.bx-group.icon
                 span.nav-text Peers
             li.nav-link
-              a(href="#")
+              a(href=`/resources?username=${username}`)
                 i.bx.bx-book.icon
                 span.nav-text Resources
         .bottom-content
           li.logout
-            a(href="#")
+            a(href="/")
               i.bx.bx-log-out.icon
               span.nav-text Logout
 

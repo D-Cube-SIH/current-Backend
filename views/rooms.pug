@@ -1,0 +1,68 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Room Selection
+    link(rel="shortcut icon", href="/assets/images/favicon.ico", type="image/x-icon")
+    link(rel="stylesheet", href="/peer.css")
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap", rel="stylesheet")
+    link(href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css", rel="stylesheet")
+    link(href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css", rel="stylesheet")
+    script(src="https://cdn.tailwindcss.com")
+    script(src="/socket.io/socket.io.js")
+    style.
+      .header {
+        z-index: 99;
+      }
+      .room-list-container {
+        margin-top: 100px;
+        padding: 20px;
+      }
+
+  body
+    .header
+      .title
+        p
+          img(src="/assets/images/chat_bubble_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg", alt="message icon")
+          |  Select a PeerChat Room
+
+    .room-list-container
+      .room-list
+        h2(style="text-align: center; margin-bottom: 20px; font-size: 1.5rem; color: #1e293b;") Available Rooms
+        #room-list
+          p.no-rooms Loading rooms...
+        button#create-room-btn.create-room-btn Create New Room
+
+    script.
+      const socket = io();
+      const username = '#{username}' || 'Guest';
+      
+      socket.emit('get-room-list');
+      
+      socket.on('room-list', (roomList) => {
+        const roomListDiv = document.getElementById('room-list');
+        roomListDiv.innerHTML = '';
+        
+        if (roomList.length === 0) {
+          roomListDiv.innerHTML = '<p class="no-rooms">No active rooms available. Create one!</p>';
+        } else {
+          roomList.forEach(room => {
+            const div = document.createElement('div');
+            div.className = 'room-item';
+            div.innerHTML = `
+              <span>${room.roomId}</span>
+              <span>${room.userCount} user(s)</span>
+            `;
+            div.onclick = () => {
+              window.location.href = `/peer_support?room=${encodeURIComponent(room.roomId)}&username=${encodeURIComponent(username)}`;
+            };
+            roomListDiv.appendChild(div);
+          });
+        }
+      });
+      
+      document.getElementById('create-room-btn').addEventListener('click', () => {
+        const roomId = 'room-' + Math.random().toString(36).substring(2, 8);
+        window.location.href = `/peer_support?room=${encodeURIComponent(roomId)}&username=${encodeURIComponent(username)}`;
+      });
