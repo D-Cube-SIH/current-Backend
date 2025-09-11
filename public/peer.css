@@ -136,7 +136,8 @@ body {
   height: 100%;
   width: 250px;
   padding: 10px 14px;
-  background: #e9e9e9;
+  background: transparent;
+  backdrop-filter: blur(10px);
   transition: var(--tran-03);
   z-index: 1000;
 }
@@ -171,7 +172,7 @@ body {
 .side-bar header .text.header-text .name {
   font-size: 32px;
   font-weight: 500;
-  color: #000;
+  color: aliceblue;
   display: flex;
   align-items: center;
   justify-content: space-between;

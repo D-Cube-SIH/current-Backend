@@ -279,11 +279,11 @@ app.post('/chat', async (req, res) => {
             {
               text: `${userInput}
 
-Take the user's input above and respond as a supportive chatbot. Keep answers short, clear, and motivating, with a positive and encouraging tone. Focus on actionable steps and uplifting guidance instead of long explanations.
+              Take the user's input above and respond as a supportive chatbot. Keep answers short, clear, and motivating, with a positive and encouraging tone. Focus on actionable steps and uplifting guidance instead of long explanations.
 
-If the input contains any mention of self-harm or suicide, do not continue the conversation. Instead, reply only with:
+              If the input contains any mention of self-harm or suicide, do not continue the conversation. Instead, reply only with:
 
-"I'm really sorry you're feeling this way. I cannot help with that, but you can call the suicide prevention helpline in India at 9152987821 (Vandrevala Foundation) or 1800-599-0019 (KIRAN). You are not alone. and attach the link as such http://localhost:8080/peer_support and explain the link as a link that helps them to get the help they want"`
+              "I'm really sorry you're feeling this way. I cannot help with that, but you can call the suicide prevention helpline in India at 9152987821 (Vandrevala Foundation) or 1800-599-0019 (KIRAN). You are not alone. and attach the link as such http://localhost:8080/peer_support and explain the link as a link that helps them to get the help they want"`
             }
           ]
         }

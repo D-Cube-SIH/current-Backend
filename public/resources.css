@@ -37,7 +37,8 @@
     height: 100%;
     width: 250px;
     padding: 10px 14px;
-    background: #E9E9E9;
+    background: transparent;
+  backdrop-filter: blur(10px);
     transition: var(--tran-03);
 }
 

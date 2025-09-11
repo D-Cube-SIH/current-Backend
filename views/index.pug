@@ -3,76 +3,94 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title My Website
     link(rel="stylesheet", href="./style.css")
     link(href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css", rel="stylesheet")
     link(href="https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css", rel="stylesheet")
     link(href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css", rel="stylesheet")
-
+    title Dashboard
   body
-    .container
-      nav.side-bar.collapsed
-        header
-          .image-text
-            .img
-              img(src="./assets/images/ex-logo.jpeg", alt="logo")
-            .text.header-text
-              span.name
-                | Mindly 
-                .toggle
-                  i.bx.bx-arrow-right-circle.toggle-img
+    nav.side-bar.collapsed
+      header
+        .image-text
+          span.img
+            img(src="/assets/images/logo.jpg", alt="logo")
+          .text.header-text
+            span.name
+              | Mindley
+              .toggle
+                i.bx.bx-arrow-right-circle.toggle-img
 
-        .menu-bar
-          .menu
-            ul.menu-links
-              li.nav-link.active
-                a(href="")
-                  i.bx.bx-home-alt-2.icon
-                  span.text.nav-text Dashboard
-              li.nav-link
-                a(href=`/chat_support?username=${username}`)
-                  i.bx.bx-message-rounded-dots.icon
-                  span.text.nav-text Chatbot
-              li.nav-link
-                a(href=`/peer_support?username=${username}`)
-                  i.bx.bx-people-diversity.icon
-                  span.text.nav-text Peers
-              li.nav-link
-                a(href=`/resources?username=${username}`)
-                  i.bx.bx-captions.icon
-                  span.text.nav-text Resources
+      .menu-bar
+        .menu
+          ul.menu-links
+            li.nav-link.active
+              a(href="/home?username=${encodeURIComponent(username)}")
+                i.bx.bx-home-alt-2.icon
+                span.text.nav-text Dashboard
+            li.nav-link
+              a(href="/chat_support?username=${encodeURIComponent(username)}")
+                i.bx.bx-message-circle-dots-2.icon
+                span.text.nav-text Chatbot
+            li.nav-link
+              a(href="/rooms?username=${encodeURIComponent(username)}")
+                i.bx.bx-people-diversity.icon
+                span.text.nav-text Peers
+            li.nav-link
+              a(href="/resources?username=${encodeURIComponent(username)}")
+                i.bx.bx-captions.icon
+                span.text.nav-text Resources
+        .bottom-content
+          li.logout
+            a(href="/")
+              i.bx.bx-running.icon
+              span.text.nav-text Logout
+    .header 
+      button.menu-btn.menu-icon(title="Open Menu")
+        img(src="/assets/images/menu_open_40dp_000000_FILL0_wght400_GRAD0_opsz40.svg", alt="")
+    .content
+      .cards
+        .card-1
+          .box
+            p Welcome
+            h3 #{username}
+            button.profile-btn Edit profile
+          .icon-case
+            img(src="/assets/images/profile.png", alt="Profile")
 
-          .bottom-content
-            li.logout
-              a(href="/")
-                i.bx.bx-running.icon
-                span.text.nav-text Logout
+      .cards
+        .Performance-card
+          .box
+            h1 Performance
+            h3 Click here to view your Performance
+          button.performance-view Click to view
 
-      main.main-content
-        .header
-          img.menu-icon(
-            title="Open Menu",
-            src="./assets/images/menu_open_40dp_000000_FILL0_wght400_GRAD0_opsz40.svg",
-            alt="menu"
-          )
-        .body-content
-          .info-container
+        .assessment-card
+          .box
+            h1 Take Health Assessment
+            button.assessment-btn Take Test
 
-          .content-grid
-            .content-box.large-box
-            .content-box.medium-box
-            .content-box.medium-box
-            .content-box.long-box
+        .care-card
+          .box
+            h1 Care Points
+            button.care-points Click to view
 
+      .cards
+        .graph-card
+          div
+            canvas#myChart(width="800", height="250")
+
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+    script(src="home.js")
     script.
-      document.addEventListener('DOMContentLoaded', function () {
-        const toggle = document.querySelector('.toggle');
-        const sideBar = document.querySelector('.side-bar');
-        const menuIcon = document.querySelector('.menu-icon');
-        toggle.addEventListener('click', function () {
-          sideBar.classList.toggle('collapsed');
-        });
-        menuIcon.addEventListener('click', function () {
-          sideBar.classList.toggle('collapsed');
-        });
+      const menuItems = document.querySelectorAll('.nav-link');
+      menuItems.forEach(item => {
+          item.addEventListener('click', () => {
+              menuItems.forEach(i => i.classList.remove('active'));
+              item.classList.add('active');
+          });
       });
+      const toggle = document.querySelector('.toggle');
+      const sideBar = document.querySelector('.side-bar');
+      const menuBtn = document.querySelector('.menu-btn');
+      menuBtn.addEventListener('click', () => sideBar.classList.toggle('collapsed'));
+      toggle.addEventListener('click', () => sideBar.classList.toggle('collapsed'));
