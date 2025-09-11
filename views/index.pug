@@ -24,19 +24,19 @@ html(lang="en")
         .menu
           ul.menu-links
             li.nav-link.active
-              a(href="/home?username=${encodeURIComponent(username)}")
+              a(href=`/home?username=${encodeURIComponent(username)}`)
                 i.bx.bx-home-alt-2.icon
                 span.text.nav-text Dashboard
             li.nav-link
-              a(href="/chat_support?username=${encodeURIComponent(username)}")
+              a(href=`/chat_support?username=${encodeURIComponent(username)}`)
                 i.bx.bx-message-circle-dots-2.icon
                 span.text.nav-text Chatbot
             li.nav-link
-              a(href="/rooms?username=${encodeURIComponent(username)}")
+              a(href=`/rooms?username=${encodeURIComponent(username)}`)
                 i.bx.bx-people-diversity.icon
                 span.text.nav-text Peers
             li.nav-link
-              a(href="/resources?username=${encodeURIComponent(username)}")
+              a(href=`/resources?username=${encodeURIComponent(username)}`)
                 i.bx.bx-captions.icon
                 span.text.nav-text Resources
         .bottom-content
