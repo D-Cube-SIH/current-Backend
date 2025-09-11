@@ -63,6 +63,7 @@ body {
 .logo {
   width: 44px;
   height: 44px;
+  margin-left: 3px;
   border-radius: 8px;
   object-fit: cover;
 }

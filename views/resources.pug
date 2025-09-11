@@ -79,7 +79,7 @@ html(lang="en")
       header
         .image-text
           .img
-            img(src="./../../assets/images/ex-logo.jpeg", alt="logo")
+            img(src="/assets/images/logo.png", alt="logo")
           .text.header-text
             span.name
               | Mindly
@@ -98,11 +98,11 @@ html(lang="en")
                 i.bx.bx-message-rounded-dots.icon
                 span.text.nav-text Chatbot
             li.nav-link
-              a(href=`/resources?username=${encodeURIComponent(username)}`)
+              a(href=`/rooms?username=${encodeURIComponent(username)}`)
                 i.bx.bx-people-diversity.icon
                 span.text.nav-text Peers
             li.nav-link.active
-              a(href=`/rooms?username=${encodeURIComponent(username)}`)
+              a(href=`/resources?username=${encodeURIComponent(username)}`)
                 i.bx.bx-captions.icon
                 span.text.nav-text Resources
         .bottom-content
